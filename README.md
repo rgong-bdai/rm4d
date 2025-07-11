@@ -1,7 +1,7 @@
 # rm4d
 
 This is the implementation of the paper "RM4D: A Combined Reachability and Inverse Reachability Map for Common 6-/7-axis Robot Arms by Dimensionality Reduction to 4D",
-which has been submitted for review to ICRA 2025. 
+which has been presented at ICRA 2025. 
 A preprint is available on [arxiv](https://arxiv.org/abs/2410.06968).
 Please also check out our [project webpage](https://mrudorfer.github.io/rm4d).
 
