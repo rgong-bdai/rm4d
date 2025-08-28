@@ -15,21 +15,23 @@ def parse_args():
     parser.add_argument('-m', '--map_type', choices=list(map_types.keys()), help='map type.', default='rm4d')
     parser.add_argument('-c', '--constructor_type', choices=list(constructor_types.keys()), help='constructor type',
                         default='joint')
-    parser.add_argument('-n', '--num_samples', type=int, help='maximum number of samples', default=int(1e7))
-    parser.add_argument('-e', '--every', type=int, help='save map and stats every n samples', default=int(1e6))
+    parser.add_argument('-n', '--num_samples', type=int, help='maximum number of samples', default=int(2e7))
+    parser.add_argument('-e', '--every', type=int, help='save map and stats every n samples', default=int(2e6))
     parser.add_argument('-s', '--seed', type=int, default=42)
+    parser.add_argument('-v', '--voxel_res', type=float, default=0.05)
 
     return parser.parse_args()
 
 
 def main(args):
+    voxel_res = args.voxel_res
     seed = args.seed
     n_section_samples = args.every
     n_save_points = args.num_samples // args.every
     robot_type = args.robot_type
     map_type = args.map_type
     constructor_type = args.constructor_type
-    exp_dir = os.path.join('data', f'{map_type}_{robot_type}_{constructor_type}_{seed}')
+    exp_dir = os.path.join('data', f'{map_type}_{robot_type}_{constructor_type}_{seed}_{voxel_res}')
     pathlib.Path(exp_dir).mkdir(parents=True, exist_ok=True)
     log_file = os.path.join(exp_dir, 'experiment.log')
 
@@ -50,7 +52,7 @@ def main(args):
     z_limits = [0, robot.range_z]
     xy_limits = [-robot.range_radius, robot.range_radius]
 
-    rmap = map_types[map_type](xy_limits=xy_limits, z_limits=z_limits, voxel_res=0.05)
+    rmap = map_types[map_type](xy_limits=xy_limits, z_limits=z_limits, voxel_res=voxel_res)
     hit_stats = HitStats(rmap.shape, record_every=n_section_samples)
     constructor = constructor_types[constructor_type](rmap, robot, seed=seed)
     t = Timer()

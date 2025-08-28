@@ -13,6 +13,7 @@ class Franka(RobotBase):
                                                          self.base_pos, self.base_orn, useFixedBase=True)
 
         # robot properties
+        # self._end_effector_link_id = 10
         self._end_effector_link_id = 11
         self._arm_joint_ids = [0, 1, 2, 3, 4, 5, 6]
         self.home_conf = [-0.017792060227770554, -0.7601235411041661, 0.019782607023391807, -2.342050140544315,
